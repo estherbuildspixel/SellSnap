@@ -1,0 +1,21 @@
+.price {
+  font-weight: 700;
+  color: var(--color-on-surface-color);
+  display: inline-block;
+}
+
+.price[data-size='sm'] {
+  font: var(--font-label-large);
+  letter-spacing: var(--font-label-large-letter-spacing);
+}
+
+.price[data-size='md'] {
+  font: var(--font-title-medium);
+  letter-spacing: var(--font-title-medium-letter-spacing);
+}
+
+.price[data-size='lg'] {
+  font: var(--font-headline-medium);
+  letter-spacing: var(--font-headline-medium-letter-spacing);
+  color: var(--color-primary-color);
+}

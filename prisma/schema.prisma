@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  pending
+  paid
+  failed
+}
+
+model User {
+  id                 String    @id @default(cuid())
+  name               String
+  email              String    @unique
+  businessName       String
+  passwordHash       String
+  passwordChangedAt  DateTime?
+  emailVerified      DateTime?
+  pendingEmail       String?
+  onboardedAt        DateTime?
+  createdAt          DateTime  @default(now())
+  products           Product[]
+  accounts           Account[]
+  sessions           Session[]
+  passwordResetTokens PasswordResetToken[]
+  emailVerificationCodes EmailVerificationCode[]
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  userId      String
+  name        String
+  description String
+  price       Int      // Stored in kobo (integer)
+  imageUrl    String
+  uniqueSlug  String   @unique
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  orders      Order[]
+
+  @@index([userId])
+}
+
+model Order {
+  id                   String      @id @default(cuid())
+  productId            String
+  buyerEmail           String?
+  amount               Int         // In kobo (integer)
+  status               OrderStatus @default(pending)
+  transactionReference String      @unique
+  createdAt            DateTime    @default(now())
+  product              Product     @relation(fields: [productId], references: [id], onDelete: Restrict)
+  payment              Payment?
+  paymentLogs          PaymentLog[]
+
+  @@index([productId])
+  @@index([status])
+}
+
+model Payment {
+  id               String    @id @default(cuid())
+  orderId          String    @unique
+  gatewayReference String    @unique
+  status           String
+  paidAt           DateTime?
+  order            Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+}
+
+// Append-only audit trail of payment lifecycle events: payment link creation,
+// webhook deliveries, verification results, and settlement decisions. Rows are
+// never updated or deleted. orderId is intentionally nullable so events with no
+// matching Order (unknown tx_ref, rejected signatures) are still recorded.
+model PaymentLog {
+  id                  String    @id @default(cuid())
+  orderId             String?
+  event               String
+  outcome             String
+  transactionReference String?
+  gatewayReference    String?
+  amountKobo          Int?
+  detail              Json?
+  createdAt           DateTime  @default(now())
+  order               Order?    @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  @@index([orderId])
+  @@index([transactionReference])
+}
+
+// NextAuth Database Session Models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model EmailVerificationCode {
+  id         String    @id @default(cuid())
+  userId     String
+  email      String
+  codeHash   String
+  attempts   Int       @default(0)
+  expiresAt  DateTime
+  usedAt     DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([email])
+  @@index([expiresAt])
+}
+
+// Single-use password reset tokens. Only the SHA-256 hash of the token is
+// stored, so a database leak does not hand out working reset links.
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}

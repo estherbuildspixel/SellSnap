@@ -1,0 +1,115 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background-color: var(--color-background-color);
+}
+
+.card {
+  width: 100%;
+  max-width: 440px;
+  padding: 32px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconCircle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-primary-container-color);
+  color: var(--color-on-primary-container-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.iconCircle[data-status='failed'] {
+  background-color: var(--color-surface-container-high-color);
+  color: var(--color-error-color);
+}
+
+.iconCircle[data-status='pending'],
+.iconCircle[data-status='unknown'] {
+  background-color: var(--color-surface-container-high-color);
+  color: var(--color-on-surface-variant-color);
+}
+
+.title {
+  font: var(--font-headline-small);
+  letter-spacing: var(--font-headline-small-letter-spacing);
+  color: var(--color-on-surface-color);
+}
+
+.subtitle {
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+  line-height: 1.5;
+}
+
+.refBox {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--color-surface-container-color);
+  border: 1px solid var(--color-outline-variant-color);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+}
+
+.refLabel {
+  font: var(--font-label-small);
+  color: var(--color-on-surface-variant-color);
+}
+
+.refValue {
+  font: var(--font-label-medium);
+  font-family: monospace;
+  color: var(--color-on-surface-color);
+  word-break: break-all;
+}
+
+.noticeBox {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: var(--color-surface-container-low-color);
+  display: flex;
+  gap: 10px;
+  text-align: left;
+  align-items: flex-start;
+}
+
+.noticeIcon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.noticeText {
+  font: var(--font-label-small);
+  color: var(--color-on-surface-variant-color);
+  line-height: 1.4;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.btn {
+  width: 100%;
+}

@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.errorAlert {
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--color-error-color);
+  background-color: color-mix(
+    in srgb,
+    var(--color-error-container-color) 12%,
+    var(--color-surface-container-high-color)
+  );
+  color: var(--color-on-surface-color);
+  font: var(--font-body-small);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.payBtn {
+  width: 100%;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.trustFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font: var(--font-label-small);
+  color: var(--color-on-surface-variant-color);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.lockIcon {
+  display: inline-flex;
+  align-items: center;
+}

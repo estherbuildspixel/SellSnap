@@ -1,0 +1,54 @@
+﻿.card { width: 100%; max-width: 440px; padding: 28px; display: flex; flex-direction: column; gap: 24px; }
+.stepIndicator { display: flex; flex-direction: column; gap: 6px; }
+.stepHeader { display: flex; align-items: center; gap: 8px; }
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--color-on-surface-variant-color);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+.backButton:hover:not(:disabled) {
+  background-color: var(--color-surface-container-high-color);
+  color: var(--color-on-surface-color);
+}
+.backButton:focus-visible {
+  outline: 2px solid var(--color-primary-color);
+  outline-offset: 2px;
+}
+.backButton:disabled { opacity: 0.5; cursor: not-allowed; }
+.stepText { font: var(--font-label-medium); color: var(--color-on-surface-variant-color); }
+.stepTrack { height: 4px; border-radius: 999px; background-color: var(--color-surface-container-high-color); overflow: hidden; }
+.stepFill { display: block; height: 100%; background-color: var(--color-primary-color); transition: width 0.25s ease; }
+.content { display: flex; flex-direction: column; gap: 8px; }
+.content[data-direction='forward'] { animation: slideInForward 280ms ease both; }
+.content[data-direction='backward'] { animation: slideInBackward 280ms ease both; }
+@keyframes slideInForward {
+  from { opacity: 0; transform: translateX(16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInBackward {
+  from { opacity: 0; transform: translateX(-16px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .content[data-direction='forward'],
+  .content[data-direction='backward'] {
+    animation: fadeIn 200ms ease both;
+  }
+}
+.title { font: var(--font-title-medium); letter-spacing: var(--font-title-medium-letter-spacing); color: var(--color-on-surface-color); }
+.description { font: var(--font-body-medium); color: var(--color-on-surface-variant-color); }
+.error { font: var(--font-body-small); color: var(--color-error-color); }
+.actions { display: flex; justify-content: space-between; gap: 12px; }

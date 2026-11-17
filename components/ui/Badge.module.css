@@ -1,0 +1,29 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px; /* small elements: 4px */
+  font: var(--font-label-small);
+  letter-spacing: var(--font-label-small-letter-spacing);
+  font-weight: 500;
+  text-transform: capitalize;
+  border: 1px solid transparent;
+}
+
+.badge[data-variant='pending'] {
+  background-color: var(--color-tertiary-container-color);
+  color: var(--color-on-tertiary-container-color);
+  border-color: var(--color-outline-variant-color);
+}
+
+.badge[data-variant='paid'] {
+  background-color: var(--color-primary-container-color);
+  color: var(--color-on-primary-container-color);
+}
+
+.badge[data-variant='failed'] {
+  background-color: var(--color-error-container-color);
+  color: var(--color-on-error-container-color);
+}

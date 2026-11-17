@@ -1,0 +1,119 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.label {
+  font: var(--font-label-large);
+  color: var(--color-on-surface-variant-color);
+}
+
+.trend {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background-color: var(--color-surface-variant-color);
+  font: var(--font-label-medium);
+  font-weight: 600;
+  color: var(--color-on-surface-variant-color);
+  white-space: nowrap;
+}
+
+.trend[data-direction='up'] {
+  color: var(--color-on-primary-container-color);
+}
+
+/* NOTE: --color-error-color is currently a placeholder that resolves to
+   magenta (see tokens/tokens.css). The role name is correct; the value will
+   be fixed upstream. */
+.trend[data-direction='down'] {
+  color: var(--color-error-color);
+}
+
+.trendGlyph {
+  font-size: 0.75em;
+  line-height: 1;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.value {
+  font: var(--font-headline-medium);
+  letter-spacing: var(--font-headline-medium-letter-spacing);
+  font-weight: 700;
+  color: var(--color-on-surface-color);
+}
+
+.caption {
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.sparkline {
+  display: block;
+  width: 100%;
+  height: 40px;
+  color: var(--color-outline-color);
+}
+
+.sparkline[data-direction='up'] {
+  color: var(--color-on-primary-container-color);
+}
+
+.sparkline[data-direction='down'] {
+  color: var(--color-error-color);
+}
+
+.sparklineLine {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.sparklineArea {
+  fill: currentColor;
+  opacity: 0.12;
+  stroke: none;
+}
+
+.comparison {
+  font: var(--font-label-small);
+  color: var(--color-on-surface-variant-color);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

@@ -1,0 +1,28 @@
+﻿.wrapper {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-background-color);
+}
+.main {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+.header { display: flex; align-items: center; justify-content: center; }
+.brand { display: flex; align-items: center; gap: 8px; color: var(--color-on-surface-color); text-decoration: none; }
+.brandText {
+  font: var(--font-title-medium);
+  font-size: clamp(1.125rem, 1vw + 0.9rem, 1.5rem);
+  font-weight: 700;
+}

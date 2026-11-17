@@ -1,0 +1,74 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px; /* minimum mobile touch target */
+  padding: 0 16px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: var(--font-body-small);
+  color: var(--color-on-primary-color);
+  background: var(--color-primary-color);
+  transition: background-color 150ms ease, opacity 150ms ease, transform 100ms ease;
+  cursor: pointer;
+  user-select: none;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.92;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--color-primary-color);
+  outline-offset: 2px;
+}
+
+.button[data-variant='secondary'] {
+  color: var(--color-on-surface-color);
+  background: var(--color-surface-container-low-color);
+  border-color: var(--color-outline-variant-color);
+}
+
+.button[data-variant='ghost'] {
+  color: var(--color-on-surface-color);
+  background: transparent;
+  border-color: transparent;
+}
+
+.button[data-variant='ghost']:hover:not(:disabled) {
+  background: var(--color-surface-container-lowest-color);
+}
+
+.button[data-variant='danger'] {
+  color: var(--color-on-error-color);
+  background: var(--color-error-color);
+}
+
+/* Size Variants */
+.button[data-size='sm'] {
+  min-height: 44px;
+  padding: 0 12px;
+  font: var(--font-label-large);
+}
+
+.button[data-size='lg'] {
+  min-height: 48px;
+  padding: 0 24px;
+  font: var(--font-body-medium);
+}
+
+@media (min-width: 768px) {
+  .button[data-size='lg'] {
+    padding: 0 32px;
+  }
+}

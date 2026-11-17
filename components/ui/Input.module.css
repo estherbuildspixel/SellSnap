@@ -1,0 +1,107 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.label {
+  font: var(--font-label-large);
+  letter-spacing: var(--font-label-large-letter-spacing);
+  color: var(--color-on-surface-color);
+  font-weight: 500;
+}
+
+.input {
+  min-height: 44px; /* mobile touch target */
+  padding: 0 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-outline-variant-color);
+  background-color: var(--color-surface-color);
+  color: var(--color-on-surface-color);
+  font: var(--font-body-medium);
+  outline: none;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  width: 100%;
+}
+
+.inputWrap {
+  position: relative;
+  width: 100%;
+}
+
+.inputWithToggle {
+  padding-right: 48px;
+}
+
+.toggle {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background-color: transparent;
+  color: var(--color-on-surface-variant-color);
+  cursor: pointer;
+  transition: color 150ms ease, background-color 150ms ease;
+}
+
+.toggle:hover:not(:disabled) {
+  color: var(--color-on-surface-color);
+  background-color: var(--color-surface-container-high-color);
+}
+
+.toggle:focus-visible {
+  outline: 2px solid var(--color-primary-color);
+  outline-offset: 2px;
+}
+
+.toggle:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.input:focus {
+  border-color: var(--color-primary-color);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-primary-color) 12%, transparent);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: var(--color-surface-container-low-color);
+}
+
+.input[aria-invalid='true'] {
+  border-color: var(--color-error-color);
+}
+
+.input[aria-invalid='true']:focus {
+  border-color: var(--color-error-color);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-error-color) 12%, transparent);
+}
+
+.error {
+  font: var(--font-body-small);
+  color: var(--color-error-color);
+}
+
+.hint {
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+}

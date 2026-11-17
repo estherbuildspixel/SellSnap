@@ -1,0 +1,461 @@
+/**
+ * AUTO-GENERATED DESIGN TOKENS CSS
+ * Created by convert-tokens.js
+ * Contains typography tokens, primitive color tokens, and semantic color roles.
+ */
+
+:root {
+  /* ==========================================================================
+   * TYPOGRAPHY TOKENS
+   * ========================================================================== */
+  /* Typography: display large */
+  --font-display-large-font-family: Satoshi, sans-serif;
+  --font-display-large-font-size: 62px;
+  --font-display-large-font-weight: 500;
+  --font-display-large-line-height: 93px;
+  --font-display-large-letter-spacing: -2.17px;
+  --font-display-large-font-style: normal;
+  --font-display-large-text-decoration: none;
+  --font-display-large: normal 500 62px/93px Satoshi, sans-serif;
+
+  /* Typography: display medium */
+  --font-display-medium-font-family: Satoshi, sans-serif;
+  --font-display-medium-font-size: 56px;
+  --font-display-medium-font-weight: 400;
+  --font-display-medium-line-height: 84px;
+  --font-display-medium-letter-spacing: -1.96px;
+  --font-display-medium-font-style: normal;
+  --font-display-medium-text-decoration: none;
+  --font-display-medium: normal 400 56px/84px Satoshi, sans-serif;
+
+  /* Typography: display small */
+  --font-display-small-font-family: Satoshi, sans-serif;
+  --font-display-small-font-size: 44px;
+  --font-display-small-font-weight: 400;
+  --font-display-small-line-height: 66px;
+  --font-display-small-letter-spacing: -1.1px;
+  --font-display-small-font-style: normal;
+  --font-display-small-text-decoration: none;
+  --font-display-small: normal 400 44px/66px Satoshi, sans-serif;
+
+  /* Typography: headline large */
+  --font-headline-large-font-family: Satoshi, sans-serif;
+  --font-headline-large-font-size: 38px;
+  --font-headline-large-font-weight: 500;
+  --font-headline-large-line-height: 57px;
+  --font-headline-large-letter-spacing: -0.836px;
+  --font-headline-large-font-style: normal;
+  --font-headline-large-text-decoration: none;
+  --font-headline-large: normal 500 38px/57px Satoshi, sans-serif;
+
+  /* Typography: headline medium */
+  --font-headline-medium-font-family: Satoshi, sans-serif;
+  --font-headline-medium-font-size: 32px;
+  --font-headline-medium-font-weight: 500;
+  --font-headline-medium-line-height: 48px;
+  --font-headline-medium-letter-spacing: -0.576px;
+  --font-headline-medium-font-style: normal;
+  --font-headline-medium-text-decoration: none;
+  --font-headline-medium: normal 500 32px/48px Satoshi, sans-serif;
+
+  /* Typography: headline small */
+  --font-headline-small-font-family: Satoshi, sans-serif;
+  --font-headline-small-font-size: 28px;
+  --font-headline-small-font-weight: 500;
+  --font-headline-small-line-height: 42px;
+  --font-headline-small-letter-spacing: -0.42px;
+  --font-headline-small-font-style: normal;
+  --font-headline-small-text-decoration: none;
+  --font-headline-small: normal 500 28px/42px Satoshi, sans-serif;
+
+  /* Typography: title large */
+  --font-title-large-font-family: Satoshi, sans-serif;
+  --font-title-large-font-size: 26px;
+  --font-title-large-font-weight: 500;
+  --font-title-large-line-height: 39px;
+  --font-title-large-letter-spacing: -0.338px;
+  --font-title-large-font-style: normal;
+  --font-title-large-text-decoration: none;
+  --font-title-large: normal 500 26px/39px Satoshi, sans-serif;
+
+  /* Typography: title medium */
+  --font-title-medium-font-family: Satoshi, sans-serif;
+  --font-title-medium-font-size: 24px;
+  --font-title-medium-font-weight: 500;
+  --font-title-medium-line-height: 36px;
+  --font-title-medium-letter-spacing: -0.288px;
+  --font-title-medium-font-style: normal;
+  --font-title-medium-text-decoration: none;
+  --font-title-medium: normal 500 24px/36px Satoshi, sans-serif;
+
+  /* Typography: title small */
+  --font-title-small-font-family: Satoshi, sans-serif;
+  --font-title-small-font-size: 22px;
+  --font-title-small-font-weight: 500;
+  --font-title-small-line-height: 33px;
+  --font-title-small-letter-spacing: -0.22px;
+  --font-title-small-font-style: normal;
+  --font-title-small-text-decoration: none;
+  --font-title-small: normal 500 22px/33px Satoshi, sans-serif;
+
+  /* Typography: body large */
+  --font-body-large-font-family: Satoshi, sans-serif;
+  --font-body-large-font-size: 1.25rem;
+  --font-body-large-font-weight: 400;
+  --font-body-large-line-height: 1.875rem;
+  --font-body-large-letter-spacing: -0.0125rem;
+  --font-body-large-font-style: normal;
+  --font-body-large-text-decoration: none;
+  --font-body-large: normal 400 1.25rem/1.875rem Satoshi, sans-serif;
+
+  /* Typography: body medium */
+  --font-body-medium-font-family: Satoshi, sans-serif;
+  --font-body-medium-font-size: 1.125rem;
+  --font-body-medium-font-weight: 400;
+  --font-body-medium-line-height: 1.6875rem;
+  --font-body-medium-letter-spacing: -0.009rem;
+  --font-body-medium-font-style: normal;
+  --font-body-medium-text-decoration: none;
+  --font-body-medium: normal 400 1.125rem/1.6875rem Satoshi, sans-serif;
+
+  /* Typography: body small */
+  --font-body-small-font-family: Satoshi, sans-serif;
+  --font-body-small-font-size: 1rem;
+  --font-body-small-font-weight: 400;
+  --font-body-small-line-height: 1.5rem;
+  --font-body-small-letter-spacing: -0.007rem;
+  --font-body-small-font-style: normal;
+  --font-body-small-text-decoration: none;
+  --font-body-small: normal 400 1rem/1.5rem Satoshi, sans-serif;
+
+  /* Typography: label large */
+  --font-label-large-font-family: Satoshi, sans-serif;
+  --font-label-large-font-size: 14px;
+  --font-label-large-font-weight: 400;
+  --font-label-large-line-height: 21px;
+  --font-label-large-letter-spacing: -0.07px;
+  --font-label-large-font-style: normal;
+  --font-label-large-text-decoration: none;
+  --font-label-large: normal 400 14px/21px Satoshi, sans-serif;
+
+  /* Typography: label medium */
+  --font-label-medium-font-family: Satoshi, sans-serif;
+  --font-label-medium-font-size: 12px;
+  --font-label-medium-font-weight: 400;
+  --font-label-medium-line-height: 18px;
+  --font-label-medium-letter-spacing: -0.06px;
+  --font-label-medium-font-style: normal;
+  --font-label-medium-text-decoration: none;
+  --font-label-medium: normal 400 12px/18px Satoshi, sans-serif;
+
+  /* Typography: label small */
+  --font-label-small-font-family: Satoshi, sans-serif;
+  --font-label-small-font-size: 10px;
+  --font-label-small-font-weight: 400;
+  --font-label-small-line-height: 15px;
+  --font-label-small-letter-spacing: -0.05px;
+  --font-label-small-font-style: normal;
+  --font-label-small-text-decoration: none;
+  --font-label-small: normal 400 10px/15px Satoshi, sans-serif;
+
+  /* ==========================================================================
+   * PRIMITIVE COLOR TOKENS (Light Theme)
+   * Raw color values - Should NOT be used directly in component styles
+   * ========================================================================== */
+  --primitive-color-light-primary-color: hsl(154, 100%, 42%);
+  --primitive-color-light-on-primary-color: hsl(0, 0%, 100%);
+  --primitive-color-light-primary-container-color: hsl(150, 76%, 52%);
+  --primitive-color-light-on-primary-container-color: hsl(151, 100%, 16%);
+  --primitive-color-light-secondary-color: hsl(153, 26%, 32%);
+  --primitive-color-light-on-secondary-color: hsl(0, 0%, 100%);
+  --primitive-color-light-secondary-container-color: hsl(150, 33%, 73%);
+  --primitive-color-light-on-secondary-container-color: hsl(155, 37%, 23%);
+  --primitive-color-light-tertiary-color: hsl(152, 19%, 33%);
+  --primitive-color-light-on-tertiary-color: hsl(0, 0%, 100%);
+  --primitive-color-light-tertiary-container-color: hsl(148, 27%, 74%);
+  --primitive-color-light-on-tertiary-container-color: hsl(154, 26%, 24%);
+  --primitive-color-light-error-color: hsl(5, 73%, 41%);
+  --primitive-color-light-on-error-color: hsl(0, 0%, 100%);
+  --primitive-color-light-error-container-color: hsl(6, 58%, 92%);
+  --primitive-color-light-on-error-container-color: hsl(5, 72%, 15%);
+  --primitive-color-light-background-color: hsl(0, 0%, 99%);
+  --primitive-color-light-on-background-color: hsl(0, 0%, 11%);
+  --primitive-color-light-surface-color: hsl(0, 0%, 98%);
+  --primitive-color-light-on-surface-color: hsl(0, 0%, 11%);
+  --primitive-color-light-surface-variant-color: hsl(0, 0%, 89%);
+  --primitive-color-light-on-surface-variant-color: hsl(0, 0%, 28%);
+  --primitive-color-light-outline-color: hsl(0, 0%, 67%);
+  --primitive-color-light-outline-variant-color: hsl(0, 0%, 89%);
+  --primitive-color-light-inverse-surface-color: hsl(0, 0%, 19%);
+  --primitive-color-light-inverse-on-surface-color: hsl(0, 0%, 95%);
+  --primitive-color-light-inverse-primary-color: hsl(150, 76%, 52%);
+  --primitive-color-light-surface-dim-color: hsl(0, 0%, 85%);
+  --primitive-color-light-surface-bright-color: hsl(0, 0%, 98%);
+  --primitive-color-light-surface-container-lowest-color: hsl(0, 0%, 100%);
+  --primitive-color-light-surface-container-low-color: hsl(0, 0%, 97%);
+  --primitive-color-light-surface-container-color: hsl(0, 0%, 93%);
+  --primitive-color-light-surface-container-high-color: hsl(0, 0%, 91%);
+  --primitive-color-light-surface-container-highest-color: hsl(0, 0%, 95%);
+
+  /* ==========================================================================
+   * PRIMITIVE COLOR TOKENS (Dark Theme)
+   * Raw color values - Should NOT be used directly in component styles
+   * ========================================================================== */
+  --primitive-color-dark-primary-color: hsl(154, 100%, 42%);
+  --primitive-color-dark-on-primary-color: hsl(149, 100%, 11%);
+  --primitive-color-dark-primary-container-color: hsl(151, 100%, 16%);
+  --primitive-color-dark-on-primary-container-color: hsl(145, 100%, 68%);
+  --primitive-color-dark-secondary-color: hsl(150, 33%, 73%);
+  --primitive-color-dark-on-secondary-color: hsl(160, 72%, 13%);
+  --primitive-color-dark-secondary-container-color: hsl(155, 37%, 23%);
+  --primitive-color-dark-on-secondary-container-color: hsl(149, 57%, 84%);
+  --primitive-color-dark-tertiary-color: hsl(148, 27%, 74%);
+  --primitive-color-dark-on-tertiary-color: hsl(156, 42%, 15%);
+  --primitive-color-dark-tertiary-container-color: hsl(154, 26%, 24%);
+  --primitive-color-dark-on-tertiary-container-color: hsl(148, 48%, 85%);
+  --primitive-color-dark-error-color: hsl(3, 66%, 77%);
+  --primitive-color-dark-on-error-color: hsl(5, 70%, 22%);
+  --primitive-color-dark-error-container-color: hsl(5, 70%, 32%);
+  --primitive-color-dark-on-error-container-color: hsl(6, 58%, 92%);
+  --primitive-color-dark-background-color: hsl(0, 0%, 11%);
+  --primitive-color-dark-on-background-color: hsl(0, 0%, 89%);
+  --primitive-color-dark-surface-color: hsl(0, 0%, 11%);
+  --primitive-color-dark-on-surface-color: hsl(0, 0%, 89%);
+  --primitive-color-dark-surface-variant-color: hsl(0, 0%, 28%);
+  --primitive-color-dark-on-surface-variant-color: hsl(0, 0%, 78%);
+  --primitive-color-dark-outline-color: hsl(0, 0%, 57%);
+  --primitive-color-dark-outline-variant-color: hsl(0, 0%, 28%);
+  --primitive-color-dark-inverse-surface-color: hsl(0, 0%, 89%);
+  --primitive-color-dark-inverse-on-surface-color: hsl(0, 0%, 19%);
+  --primitive-color-dark-inverse-primary-color: hsl(152, 100%, 21%);
+  --primitive-color-dark-surface-dim-color: hsl(0, 0%, 9%);
+  --primitive-color-dark-surface-bright-color: hsl(0, 0%, 19%);
+  --primitive-color-dark-surface-container-lowest-color: hsl(0, 0%, 7%);
+  --primitive-color-dark-surface-container-low-color: hsl(0, 0%, 11%);
+  --primitive-color-dark-surface-container-color: hsl(0, 0%, 13%);
+  --primitive-color-dark-surface-container-high-color: hsl(0, 0%, 15%);
+  --primitive-color-dark-surface-container-highest-color: hsl(0, 0%, 17%);
+
+  /* ==========================================================================
+   * SEMANTIC COLOR ROLES (Default / Light Theme)
+   * Components and UI elements must ALWAYS use these color role variables
+   * ========================================================================== */
+  --primary-color: var(--primitive-color-light-primary-color);
+  --color-primary-color: var(--primitive-color-light-primary-color);
+  --on-primary-color: var(--primitive-color-light-on-primary-color);
+  --color-on-primary-color: var(--primitive-color-light-on-primary-color);
+  --primary-container-color: var(--primitive-color-light-primary-container-color);
+  --color-primary-container-color: var(--primitive-color-light-primary-container-color);
+  --on-primary-container-color: var(--primitive-color-light-on-primary-container-color);
+  --color-on-primary-container-color: var(--primitive-color-light-on-primary-container-color);
+  --secondary-color: var(--primitive-color-light-secondary-color);
+  --color-secondary-color: var(--primitive-color-light-secondary-color);
+  --on-secondary-color: var(--primitive-color-light-on-secondary-color);
+  --color-on-secondary-color: var(--primitive-color-light-on-secondary-color);
+  --secondary-container-color: var(--primitive-color-light-secondary-container-color);
+  --color-secondary-container-color: var(--primitive-color-light-secondary-container-color);
+  --on-secondary-container-color: var(--primitive-color-light-on-secondary-container-color);
+  --color-on-secondary-container-color: var(--primitive-color-light-on-secondary-container-color);
+  --tertiary-color: var(--primitive-color-light-tertiary-color);
+  --color-tertiary-color: var(--primitive-color-light-tertiary-color);
+  --on-tertiary-color: var(--primitive-color-light-on-tertiary-color);
+  --color-on-tertiary-color: var(--primitive-color-light-on-tertiary-color);
+  --tertiary-container-color: var(--primitive-color-light-tertiary-container-color);
+  --color-tertiary-container-color: var(--primitive-color-light-tertiary-container-color);
+  --on-tertiary-container-color: var(--primitive-color-light-on-tertiary-container-color);
+  --color-on-tertiary-container-color: var(--primitive-color-light-on-tertiary-container-color);
+  --error-color: var(--primitive-color-light-error-color);
+  --color-error-color: var(--primitive-color-light-error-color);
+  --on-error-color: var(--primitive-color-light-on-error-color);
+  --color-on-error-color: var(--primitive-color-light-on-error-color);
+  --error-container-color: var(--primitive-color-light-error-container-color);
+  --color-error-container-color: var(--primitive-color-light-error-container-color);
+  --on-error-container-color: var(--primitive-color-light-on-error-container-color);
+  --color-on-error-container-color: var(--primitive-color-light-on-error-container-color);
+  --background-color: var(--primitive-color-light-background-color);
+  --color-background-color: var(--primitive-color-light-background-color);
+  --on-background-color: var(--primitive-color-light-on-background-color);
+  --color-on-background-color: var(--primitive-color-light-on-background-color);
+  --surface-color: var(--primitive-color-light-surface-color);
+  --color-surface-color: var(--primitive-color-light-surface-color);
+  --on-surface-color: var(--primitive-color-light-on-surface-color);
+  --color-on-surface-color: var(--primitive-color-light-on-surface-color);
+  --surface-variant-color: var(--primitive-color-light-surface-variant-color);
+  --color-surface-variant-color: var(--primitive-color-light-surface-variant-color);
+  --on-surface-variant-color: var(--primitive-color-light-on-surface-variant-color);
+  --color-on-surface-variant-color: var(--primitive-color-light-on-surface-variant-color);
+  --outline-color: var(--primitive-color-light-outline-color);
+  --color-outline-color: var(--primitive-color-light-outline-color);
+  --outline-variant-color: var(--primitive-color-light-outline-variant-color);
+  --color-outline-variant-color: var(--primitive-color-light-outline-variant-color);
+  --inverse-surface-color: var(--primitive-color-light-inverse-surface-color);
+  --color-inverse-surface-color: var(--primitive-color-light-inverse-surface-color);
+  --inverse-on-surface-color: var(--primitive-color-light-inverse-on-surface-color);
+  --color-inverse-on-surface-color: var(--primitive-color-light-inverse-on-surface-color);
+  --inverse-primary-color: var(--primitive-color-light-inverse-primary-color);
+  --color-inverse-primary-color: var(--primitive-color-light-inverse-primary-color);
+  --surface-dim-color: var(--primitive-color-light-surface-dim-color);
+  --color-surface-dim-color: var(--primitive-color-light-surface-dim-color);
+  --surface-bright-color: var(--primitive-color-light-surface-bright-color);
+  --color-surface-bright-color: var(--primitive-color-light-surface-bright-color);
+  --surface-container-lowest-color: var(--primitive-color-light-surface-container-lowest-color);
+  --color-surface-container-lowest-color: var(--primitive-color-light-surface-container-lowest-color);
+  --surface-container-low-color: var(--primitive-color-light-surface-container-low-color);
+  --color-surface-container-low-color: var(--primitive-color-light-surface-container-low-color);
+  --surface-container-color: var(--primitive-color-light-surface-container-color);
+  --color-surface-container-color: var(--primitive-color-light-surface-container-color);
+  --surface-container-high-color: var(--primitive-color-light-surface-container-high-color);
+  --color-surface-container-high-color: var(--primitive-color-light-surface-container-high-color);
+  --surface-container-highest-color: var(--primitive-color-light-surface-container-highest-color);
+  --color-surface-container-highest-color: var(--primitive-color-light-surface-container-highest-color);
+}
+
+/* ==========================================================================
+ * SEMANTIC COLOR ROLES (Dark Theme Overrides)
+ * Activated via data-theme="dark", .dark-theme, .dark, or prefers-color-scheme
+ * ========================================================================== */
+[data-theme="dark"],
+.dark-theme,
+.dark {
+  --primary-color: var(--primitive-color-dark-primary-color);
+  --color-primary-color: var(--primitive-color-dark-primary-color);
+  --on-primary-color: var(--primitive-color-dark-on-primary-color);
+  --color-on-primary-color: var(--primitive-color-dark-on-primary-color);
+  --primary-container-color: var(--primitive-color-dark-primary-container-color);
+  --color-primary-container-color: var(--primitive-color-dark-primary-container-color);
+  --on-primary-container-color: var(--primitive-color-dark-on-primary-container-color);
+  --color-on-primary-container-color: var(--primitive-color-dark-on-primary-container-color);
+  --secondary-color: var(--primitive-color-dark-secondary-color);
+  --color-secondary-color: var(--primitive-color-dark-secondary-color);
+  --on-secondary-color: var(--primitive-color-dark-on-secondary-color);
+  --color-on-secondary-color: var(--primitive-color-dark-on-secondary-color);
+  --secondary-container-color: var(--primitive-color-dark-secondary-container-color);
+  --color-secondary-container-color: var(--primitive-color-dark-secondary-container-color);
+  --on-secondary-container-color: var(--primitive-color-dark-on-secondary-container-color);
+  --color-on-secondary-container-color: var(--primitive-color-dark-on-secondary-container-color);
+  --tertiary-color: var(--primitive-color-dark-tertiary-color);
+  --color-tertiary-color: var(--primitive-color-dark-tertiary-color);
+  --on-tertiary-color: var(--primitive-color-dark-on-tertiary-color);
+  --color-on-tertiary-color: var(--primitive-color-dark-on-tertiary-color);
+  --tertiary-container-color: var(--primitive-color-dark-tertiary-container-color);
+  --color-tertiary-container-color: var(--primitive-color-dark-tertiary-container-color);
+  --on-tertiary-container-color: var(--primitive-color-dark-on-tertiary-container-color);
+  --color-on-tertiary-container-color: var(--primitive-color-dark-on-tertiary-container-color);
+  --error-color: var(--primitive-color-dark-error-color);
+  --color-error-color: var(--primitive-color-dark-error-color);
+  --on-error-color: var(--primitive-color-dark-on-error-color);
+  --color-on-error-color: var(--primitive-color-dark-on-error-color);
+  --error-container-color: var(--primitive-color-dark-error-container-color);
+  --color-error-container-color: var(--primitive-color-dark-error-container-color);
+  --on-error-container-color: var(--primitive-color-dark-on-error-container-color);
+  --color-on-error-container-color: var(--primitive-color-dark-on-error-container-color);
+  --background-color: var(--primitive-color-dark-background-color);
+  --color-background-color: var(--primitive-color-dark-background-color);
+  --on-background-color: var(--primitive-color-dark-on-background-color);
+  --color-on-background-color: var(--primitive-color-dark-on-background-color);
+  --surface-color: var(--primitive-color-dark-surface-color);
+  --color-surface-color: var(--primitive-color-dark-surface-color);
+  --on-surface-color: var(--primitive-color-dark-on-surface-color);
+  --color-on-surface-color: var(--primitive-color-dark-on-surface-color);
+  --surface-variant-color: var(--primitive-color-dark-surface-variant-color);
+  --color-surface-variant-color: var(--primitive-color-dark-surface-variant-color);
+  --on-surface-variant-color: var(--primitive-color-dark-on-surface-variant-color);
+  --color-on-surface-variant-color: var(--primitive-color-dark-on-surface-variant-color);
+  --outline-color: var(--primitive-color-dark-outline-color);
+  --color-outline-color: var(--primitive-color-dark-outline-color);
+  --outline-variant-color: var(--primitive-color-dark-outline-variant-color);
+  --color-outline-variant-color: var(--primitive-color-dark-outline-variant-color);
+  --inverse-surface-color: var(--primitive-color-dark-inverse-surface-color);
+  --color-inverse-surface-color: var(--primitive-color-dark-inverse-surface-color);
+  --inverse-on-surface-color: var(--primitive-color-dark-inverse-on-surface-color);
+  --color-inverse-on-surface-color: var(--primitive-color-dark-inverse-on-surface-color);
+  --inverse-primary-color: var(--primitive-color-dark-inverse-primary-color);
+  --color-inverse-primary-color: var(--primitive-color-dark-inverse-primary-color);
+  --surface-dim-color: var(--primitive-color-dark-surface-dim-color);
+  --color-surface-dim-color: var(--primitive-color-dark-surface-dim-color);
+  --surface-bright-color: var(--primitive-color-dark-surface-bright-color);
+  --color-surface-bright-color: var(--primitive-color-dark-surface-bright-color);
+  --surface-container-lowest-color: var(--primitive-color-dark-surface-container-lowest-color);
+  --color-surface-container-lowest-color: var(--primitive-color-dark-surface-container-lowest-color);
+  --surface-container-low-color: var(--primitive-color-dark-surface-container-low-color);
+  --color-surface-container-low-color: var(--primitive-color-dark-surface-container-low-color);
+  --surface-container-color: var(--primitive-color-dark-surface-container-color);
+  --color-surface-container-color: var(--primitive-color-dark-surface-container-color);
+  --surface-container-high-color: var(--primitive-color-dark-surface-container-high-color);
+  --color-surface-container-high-color: var(--primitive-color-dark-surface-container-high-color);
+  --surface-container-highest-color: var(--primitive-color-dark-surface-container-highest-color);
+  --color-surface-container-highest-color: var(--primitive-color-dark-surface-container-highest-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]):not(.light-theme):not(.light) {
+  --primary-color: var(--primitive-color-dark-primary-color);
+  --color-primary-color: var(--primitive-color-dark-primary-color);
+  --on-primary-color: var(--primitive-color-dark-on-primary-color);
+  --color-on-primary-color: var(--primitive-color-dark-on-primary-color);
+  --primary-container-color: var(--primitive-color-dark-primary-container-color);
+  --color-primary-container-color: var(--primitive-color-dark-primary-container-color);
+  --on-primary-container-color: var(--primitive-color-dark-on-primary-container-color);
+  --color-on-primary-container-color: var(--primitive-color-dark-on-primary-container-color);
+  --secondary-color: var(--primitive-color-dark-secondary-color);
+  --color-secondary-color: var(--primitive-color-dark-secondary-color);
+  --on-secondary-color: var(--primitive-color-dark-on-secondary-color);
+  --color-on-secondary-color: var(--primitive-color-dark-on-secondary-color);
+  --secondary-container-color: var(--primitive-color-dark-secondary-container-color);
+  --color-secondary-container-color: var(--primitive-color-dark-secondary-container-color);
+  --on-secondary-container-color: var(--primitive-color-dark-on-secondary-container-color);
+  --color-on-secondary-container-color: var(--primitive-color-dark-on-secondary-container-color);
+  --tertiary-color: var(--primitive-color-dark-tertiary-color);
+  --color-tertiary-color: var(--primitive-color-dark-tertiary-color);
+  --on-tertiary-color: var(--primitive-color-dark-on-tertiary-color);
+  --color-on-tertiary-color: var(--primitive-color-dark-on-tertiary-color);
+  --tertiary-container-color: var(--primitive-color-dark-tertiary-container-color);
+  --color-tertiary-container-color: var(--primitive-color-dark-tertiary-container-color);
+  --on-tertiary-container-color: var(--primitive-color-dark-on-tertiary-container-color);
+  --color-on-tertiary-container-color: var(--primitive-color-dark-on-tertiary-container-color);
+  --error-color: var(--primitive-color-dark-error-color);
+  --color-error-color: var(--primitive-color-dark-error-color);
+  --on-error-color: var(--primitive-color-dark-on-error-color);
+  --color-on-error-color: var(--primitive-color-dark-on-error-color);
+  --error-container-color: var(--primitive-color-dark-error-container-color);
+  --color-error-container-color: var(--primitive-color-dark-error-container-color);
+  --on-error-container-color: var(--primitive-color-dark-on-error-container-color);
+  --color-on-error-container-color: var(--primitive-color-dark-on-error-container-color);
+  --background-color: var(--primitive-color-dark-background-color);
+  --color-background-color: var(--primitive-color-dark-background-color);
+  --on-background-color: var(--primitive-color-dark-on-background-color);
+  --color-on-background-color: var(--primitive-color-dark-on-background-color);
+  --surface-color: var(--primitive-color-dark-surface-color);
+  --color-surface-color: var(--primitive-color-dark-surface-color);
+  --on-surface-color: var(--primitive-color-dark-on-surface-color);
+  --color-on-surface-color: var(--primitive-color-dark-on-surface-color);
+  --surface-variant-color: var(--primitive-color-dark-surface-variant-color);
+  --color-surface-variant-color: var(--primitive-color-dark-surface-variant-color);
+  --on-surface-variant-color: var(--primitive-color-dark-on-surface-variant-color);
+  --color-on-surface-variant-color: var(--primitive-color-dark-on-surface-variant-color);
+  --outline-color: var(--primitive-color-dark-outline-color);
+  --color-outline-color: var(--primitive-color-dark-outline-color);
+  --outline-variant-color: var(--primitive-color-dark-outline-variant-color);
+  --color-outline-variant-color: var(--primitive-color-dark-outline-variant-color);
+  --inverse-surface-color: var(--primitive-color-dark-inverse-surface-color);
+  --color-inverse-surface-color: var(--primitive-color-dark-inverse-surface-color);
+  --inverse-on-surface-color: var(--primitive-color-dark-inverse-on-surface-color);
+  --color-inverse-on-surface-color: var(--primitive-color-dark-inverse-on-surface-color);
+  --inverse-primary-color: var(--primitive-color-dark-inverse-primary-color);
+  --color-inverse-primary-color: var(--primitive-color-dark-inverse-primary-color);
+  --surface-dim-color: var(--primitive-color-dark-surface-dim-color);
+  --color-surface-dim-color: var(--primitive-color-dark-surface-dim-color);
+  --surface-bright-color: var(--primitive-color-dark-surface-bright-color);
+  --color-surface-bright-color: var(--primitive-color-dark-surface-bright-color);
+  --surface-container-lowest-color: var(--primitive-color-dark-surface-container-lowest-color);
+  --color-surface-container-lowest-color: var(--primitive-color-dark-surface-container-lowest-color);
+  --surface-container-low-color: var(--primitive-color-dark-surface-container-low-color);
+  --color-surface-container-low-color: var(--primitive-color-dark-surface-container-low-color);
+  --surface-container-color: var(--primitive-color-dark-surface-container-color);
+  --color-surface-container-color: var(--primitive-color-dark-surface-container-color);
+  --surface-container-high-color: var(--primitive-color-dark-surface-container-high-color);
+  --color-surface-container-high-color: var(--primitive-color-dark-surface-container-high-color);
+  --surface-container-highest-color: var(--primitive-color-dark-surface-container-highest-color);
+  --color-surface-container-highest-color: var(--primitive-color-dark-surface-container-highest-color);
+  }
+}

@@ -1,0 +1,133 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  padding: 0;
+  border-radius: 12px;
+}
+
+.imageContainer {
+  width: 100%;
+  height: 200px;
+  background-color: var(--color-surface-container-high-color);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholderImage {
+  font-size: 48px;
+}
+
+.content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+@media (min-width: 768px) {
+  .content {
+    padding: 20px;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.name {
+  font: var(--font-title-medium);
+  letter-spacing: var(--font-title-medium-letter-spacing);
+  color: var(--color-on-surface-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description {
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+}
+
+.linkBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 8px;
+  background-color: var(--color-surface-container-color);
+  border: 1px solid var(--color-outline-variant-color);
+}
+
+.slug {
+  font: var(--font-label-medium);
+  color: var(--color-on-surface-variant-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 180px;
+}
+
+.copyBtn {
+  background: transparent;
+  border: none;
+  font: var(--font-label-large);
+  color: var(--color-primary-color);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: opacity 150ms ease;
+  min-height: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.copyBtn:hover {
+  opacity: 0.8;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: auto;
+}
+
+.actions > * {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.actions > * > button,
+.actions > button {
+  width: 100%;
+}
+
+.shareBtn {
+  width: 100%;
+}
+
+.deleteBtn.deleteBtn.deleteBtn {
+  color: var(--color-on-surface-variant-color);
+}

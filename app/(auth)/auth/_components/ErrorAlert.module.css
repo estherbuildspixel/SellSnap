@@ -1,0 +1,27 @@
+.errorAlert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: color-mix(
+    in srgb,
+    var(--color-error-container-color) 12%,
+    var(--color-surface-container-high-color)
+  );
+  border: 1px solid var(--color-error-color);
+  color: var(--color-on-surface-color);
+  font: var(--font-body-small);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.errorAlertIcon {
+  flex-shrink: 0;
+  color: var(--color-error-color);
+}
+
+.errorAlertText {
+  min-width: 0;
+}

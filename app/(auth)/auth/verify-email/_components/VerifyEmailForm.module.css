@@ -1,0 +1,83 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form .field {
+  gap: 4px;
+}
+
+.codeInput {
+  font: var(--font-body-large);
+  letter-spacing: 6px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.devCode {
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+  text-align: center;
+}
+
+.devCode strong {
+  color: var(--color-primary-color);
+  letter-spacing: 2px;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background-color: var(--color-surface-container-high-color);
+  border: 1px solid var(--color-outline-variant-color);
+  color: var(--color-on-surface-color);
+  font: var(--font-body-small);
+}
+
+.noticeIcon {
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--color-primary-color);
+}
+
+.submitBtn {
+  width: 100%;
+  margin-top: 4px;
+}
+
+.resend {
+  margin-top: 14px;
+  text-align: center;
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+}
+
+.resend button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.footer {
+  margin-top: 8px;
+  text-align: center;
+  font: var(--font-body-small);
+  color: var(--color-on-surface-variant-color);
+}
+
+.link {
+  font: inherit;
+  color: var(--color-primary-color);
+  font-weight: 500;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
