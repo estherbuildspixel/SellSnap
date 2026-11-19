@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { db } from '@/lib/db';
 import { verifyOrderOnBuyerReturn } from '@/lib/payments';
+import { firstQueryValue } from '@/lib/utils';
 import { PaymentStatusRefresher } from './_components/PaymentStatusRefresher';
 import styles from './success.module.css';
 
@@ -17,7 +18,10 @@ export const dynamic = 'force-dynamic';
 
 type Props = {
   params: Promise<{ slug: string }>;
-  searchParams: Promise<{ tx_ref?: string; transaction_id?: string }>;
+  searchParams: Promise<{
+    tx_ref?: string | string[];
+    transaction_id?: string | string[];
+  }>;
 };
 
 type PaymentState = 'paid' | 'pending' | 'failed' | 'unknown';
@@ -62,23 +66,25 @@ const copy: Record<
 export default async function PaymentSuccessPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const { tx_ref, transaction_id } = await searchParams;
+  const txRef = firstQueryValue(tx_ref);
+  const transactionIdValue = firstQueryValue(transaction_id);
 
-  const parsedTransactionId = Number(transaction_id);
+  const parsedTransactionId = Number(transactionIdValue);
   const transactionId =
     Number.isInteger(parsedTransactionId) && parsedTransactionId > 0
       ? parsedTransactionId
       : undefined;
 
   let state: PaymentState = 'unknown';
-  let reference = tx_ref;
+  let reference = txRef;
 
-  if (tx_ref || transactionId) {
+  if (txRef || transactionId) {
     try {
       // DEVELOPMENT ONLY: Flutterwave cannot reach localhost webhooks, so ask
       // the verify API for the real status on the buyer return. This is a no-op
       // in production, where only the signed webhook may settle an order.
-      const verification = await verifyOrderOnBuyerReturn(tx_ref, transactionId);
-      reference = verification?.transactionReference ?? tx_ref;
+      const verification = await verifyOrderOnBuyerReturn(txRef, transactionId);
+      reference = verification?.transactionReference ?? txRef;
 
       if (reference) {
         const order = await db.order.findUnique({

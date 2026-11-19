@@ -7,10 +7,11 @@ import { PageHeader } from '@/components/shared/PageHeader';
 import { EmptyState } from '@/components/shared/EmptyState';
 import { OrdersTable } from '@/components/dashboard/OrdersTable';
 import type { OrderDto } from '@/lib/types';
+import { firstQueryValue } from '@/lib/utils';
 import styles from './orders.module.css';
 
 type Props = {
-  searchParams: Promise<{ status?: string }>;
+  searchParams: Promise<{ status?: string | string[] }>;
 };
 
 export default async function OrdersPage({ searchParams }: Props) {
@@ -18,6 +19,7 @@ export default async function OrdersPage({ searchParams }: Props) {
   if (!session) return null;
 
   const { status } = await searchParams;
+  const statusFilter = firstQueryValue(status);
 
   let orders: OrderDto[] = [];
   try {
@@ -25,8 +27,11 @@ export default async function OrdersPage({ searchParams }: Props) {
       product: { userId: session.userId },
     };
 
-    if (status && ['pending', 'paid', 'failed'].includes(status)) {
-      whereClause.status = status;
+    if (
+      statusFilter &&
+      ['pending', 'paid', 'failed'].includes(statusFilter)
+    ) {
+      whereClause.status = statusFilter;
     }
 
     const raw = await db.order.findMany({
@@ -40,7 +45,7 @@ export default async function OrdersPage({ searchParams }: Props) {
     // fallback
   }
 
-  const activeFilter = status || 'all';
+  const activeFilter = statusFilter || 'all';
 
   return (
     <div className={styles.container}>

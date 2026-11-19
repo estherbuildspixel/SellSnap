@@ -66,7 +66,13 @@ export async function POST(req: NextRequest) {
     const parsed = webhookSchema.safeParse(body);
 
     if (!parsed.success) {
-      logger.warn('webhooks.flutterwave.invalid_payload', { issues: parsed.error.issues });
+      logger.warn('webhooks.flutterwave.invalid_payload', {
+        issueCount: parsed.error.issues.length,
+        issuePaths: parsed.error.issues
+          .map((issue) => issue.path.join('.'))
+          .filter(Boolean)
+          .slice(0, 5),
+      });
       // Zod issues can echo raw request values; do not persist them.
       await recordPaymentLog({ event: 'webhook', outcome: 'invalid_payload' });
       return fail(400, 'invalid_input', 'Invalid payload.');

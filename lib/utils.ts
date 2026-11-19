@@ -29,3 +29,13 @@ export function generateSlug(name: string): string {
 export function isWholeNaira(kobo: number): boolean {
   return Number.isInteger(kobo) && kobo > 0 && kobo % 100 === 0;
 }
+
+/**
+ * Query parameters can arrive as arrays (`?status=paid&status=failed`).
+ * Always read the first value so downstream code receives a string.
+ */
+export function firstQueryValue(
+  value: string | string[] | undefined
+): string | undefined {
+  return Array.isArray(value) ? value[0] : value;
+}

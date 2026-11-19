@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { findValidResetToken } from '@/lib/password-reset';
+import { firstQueryValue } from '@/lib/utils';
 import { ResetPasswordForm } from './_components/ResetPasswordForm';
 
 export const metadata: Metadata = {
@@ -8,15 +9,21 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ token?: string }>;
+  searchParams: Promise<{ token?: string | string[] }>;
 };
 
 export default async function ResetPasswordPage({ searchParams }: Props) {
   const { token } = await searchParams;
+  const tokenValue = firstQueryValue(token);
 
   // Check the link before showing the form, so an expired link never looks
   // like a broken one. The token itself is the credential.
-  const record = token ? await findValidResetToken(token) : null;
+  const record = tokenValue ? await findValidResetToken(tokenValue) : null;
 
-  return <ResetPasswordForm token={token ?? ''} tokenIsValid={Boolean(record)} />;
+  return (
+    <ResetPasswordForm
+      token={tokenValue ?? ''}
+      tokenIsValid={Boolean(record)}
+    />
+  );
 }

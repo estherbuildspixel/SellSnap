@@ -12,6 +12,9 @@ import { generateSlug } from '@/lib/utils';
 import type { ProductDto } from '@/lib/types';
 import styles from './ProductForm.module.css';
 
+const MAX_IMAGE_BYTES = 2 * 1024 * 1024;
+const ACCEPTED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+
 export type ProductFormProps = {
   product?: ProductDto;
 };
@@ -30,8 +33,15 @@ export function ProductForm({ product }: ProductFormProps) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) {
-      setError('Image must be under 5MB.');
+    setError(null);
+
+    if (!ACCEPTED_IMAGE_TYPES.includes(file.type)) {
+      setError('Upload a PNG, JPEG, or WebP image.');
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_BYTES) {
+      setError('Image must be 2MB or smaller.');
       return;
     }
 
@@ -55,18 +65,23 @@ export function ProductForm({ product }: ProductFormProps) {
     formData.append('priceNaira', priceNaira);
     formData.append('imageUrl', imageUrl);
 
-    const result = product
-      ? await updateProductAction(product.id, formData)
-      : await createProductAction(formData);
+    try {
+      const result = product
+        ? await updateProductAction(product.id, formData)
+        : await createProductAction(formData);
 
-    if (!result.ok) {
-      setError(result.error.message);
+      if (!result.ok) {
+        setError(result.error.message);
+        setIsSubmitting(false);
+        return;
+      }
+
+      router.push('/products');
+      router.refresh();
+    } catch {
+      setError('Could not save your product. Please try again.');
       setIsSubmitting(false);
-      return;
     }
-
-    router.push('/products');
-    router.refresh();
   };
 
   const predictedSlug = product?.uniqueSlug ?? (name ? generateSlug(name) : 'your-product-xxxx');

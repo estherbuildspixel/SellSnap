@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { z } from 'zod';
 import {
   enforceRateLimit,
+  enforceTrustedOrigin,
   fail,
   ok,
   rateLimited,
@@ -13,9 +14,14 @@ import { recordPaymentLog } from '@/lib/payment-log';
 import { getClientIp } from '@/lib/request';
 
 const orderCreateSchema = z.object({
-  slug: z.string().min(1, 'Product slug is required'),
-  buyerEmail: z.string().email('Please enter a valid email address').toLowerCase().trim(),
-  buyerName: z.string().optional(),
+  slug: z.string().trim().min(1, 'Product slug is required').max(120),
+  buyerEmail: z
+    .string()
+    .trim()
+    .toLowerCase()
+    .email('Please enter a valid email address')
+    .max(254),
+  buyerName: z.string().trim().max(100).optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -28,6 +34,9 @@ export async function POST(req: NextRequest) {
       'Too many requests. Please try again shortly.'
     );
     if (limited) return limited;
+
+    const untrusted = enforceTrustedOrigin(req);
+    if (untrusted) return untrusted;
 
     const body = await req.json().catch(() => null);
     const parsed = orderCreateSchema.safeParse(body);

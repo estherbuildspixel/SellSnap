@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { firstQueryValue } from '@/lib/utils';
 import { AuthForm, type AuthMode } from './_components/AuthForm';
 
 export const metadata: Metadata = {
@@ -8,18 +9,23 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ mode?: string; verified?: string; email?: string }>;
+  searchParams: Promise<{
+    mode?: string | string[];
+    verified?: string | string[];
+    email?: string | string[];
+  }>;
 };
 
 export default async function AuthPage({ searchParams }: Props) {
   const { mode, verified, email } = await searchParams;
-  const initialMode: AuthMode = mode === 'signup' ? 'signup' : 'login';
+  const initialMode: AuthMode =
+    firstQueryValue(mode) === 'signup' ? 'signup' : 'login';
 
   return (
     <AuthForm
       initialMode={initialMode}
-      initialEmail={email ?? ''}
-      verified={verified === '1'}
+      initialEmail={firstQueryValue(email) ?? ''}
+      verified={firstQueryValue(verified) === '1'}
     />
   );
 }

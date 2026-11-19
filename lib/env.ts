@@ -10,6 +10,7 @@ const optionalUrl = z.preprocess(emptyToUndefined, z.string().url().optional());
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   DATABASE_URL: z.string().min(1, 'DATABASE_URL is required'),
+  DIRECT_URL: optionalUrl,
   NEXTAUTH_SECRET: z.string().min(1, 'NEXTAUTH_SECRET is required'),
   NEXTAUTH_URL: optionalUrl,
   FLW_PUBLIC_KEY: z.string().min(1, 'FLW_PUBLIC_KEY is required'),
@@ -68,6 +69,19 @@ function parseEnv() {
     if (!parsed.NEXTAUTH_URL) {
       logger.warn('env.nextauth_url.missing', {
         reason: 'NextAuth requires NEXTAUTH_URL in production.',
+      });
+    }
+
+    if (!parsed.DIRECT_URL) {
+      logger.warn('env.direct_url.missing', {
+        reason:
+          'DIRECT_URL is required for Prisma CLI commands (migrations) against a pooled database.',
+      });
+    }
+
+    if (parsed.ENABLE_DEV_VERIFY === 'true') {
+      logger.warn('env.dev_verify.blocked_in_production', {
+        reason: 'ENABLE_DEV_VERIFY is ignored in production.',
       });
     }
 

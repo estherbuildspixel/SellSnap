@@ -1,19 +1,27 @@
 'use server';
 
+import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { revalidatePath } from 'next/cache';
 import { db } from '@/lib/db';
 import { logger } from '@/lib/logger';
 import { getSession } from '@/lib/auth';
-import { generateSlug, isWholeNaira } from '@/lib/utils';
+import { isWholeNaira } from '@/lib/utils';
+import { validateProductImageDataUrl } from '@/lib/product-image';
+import { generateProductSlug } from '@/lib/product-slug';
 import type { ActionResult } from '@/lib/types';
 
 const productSchema = z.object({
   name: z.string().min(2, 'Product name must be at least 2 characters').max(100),
   description: z.string().min(5, 'Description must be at least 5 characters').max(1000),
   priceNaira: z.coerce.number().positive('Price must be greater than 0'),
-  imageUrl: z.string().min(1, 'Please provide a product image'),
+  imageUrl: z
+    .string()
+    .min(1, 'Please provide a product image')
+    .max(3_000_000, 'Image is too large.'),
 });
+
+const MAX_SLUG_ATTEMPTS = 5;
 
 export async function createProductAction(formData: FormData): Promise<ActionResult> {
   try {
@@ -48,29 +56,65 @@ export async function createProductAction(formData: FormData): Promise<ActionRes
       };
     }
 
-    // 3. Generate unique slug
-    let uniqueSlug = generateSlug(name);
-    // Double check collision
-    const existing = await db.product.findUnique({ where: { uniqueSlug } });
-    if (existing) {
-      uniqueSlug = generateSlug(name);
+    const image = validateProductImageDataUrl(imageUrl);
+    if (!image.ok) {
+      return {
+        ok: false,
+        error: { code: 'invalid_image', message: image.message },
+      };
     }
 
-    // 4. Create Product
-    const created = await db.product.create({
-      data: {
-        userId: session.userId,
-        name,
-        description,
-        price: priceKobo,
-        imageUrl,
-        uniqueSlug,
-      },
-    });
+    // 3. Create the product. The database's unique constraint is the source of
+    // truth for slug collisions, so retry with a fresh suffix on P2002.
+    let created: { id: string; uniqueSlug: string } | null = null;
+
+    for (let attempt = 0; attempt < MAX_SLUG_ATTEMPTS; attempt += 1) {
+      const uniqueSlug = generateProductSlug(name);
+
+      try {
+        created = await db.product.create({
+          data: {
+            userId: session.userId,
+            name,
+            description,
+            price: priceKobo,
+            imageUrl,
+            uniqueSlug,
+          },
+          select: { id: true, uniqueSlug: true },
+        });
+        break;
+      } catch (error) {
+        if (
+          error instanceof Prisma.PrismaClientKnownRequestError &&
+          error.code === 'P2002'
+        ) {
+          logger.warn('product.slug_collision', {
+            userId: session.userId,
+            attempt: attempt + 1,
+          });
+          continue;
+        }
+
+        throw error;
+      }
+    }
+
+    if (!created) {
+      logger.error('product.slug_exhausted', { userId: session.userId });
+      return {
+        ok: false,
+        error: { code: 'server_error', message: 'Could not create product. Please try again.' },
+      };
+    }
 
     revalidatePath('/products');
     revalidatePath('/dashboard');
-    logger.info('product.created', { productId: created.id, userId: session.userId, slug: uniqueSlug });
+    logger.info('product.created', {
+      productId: created.id,
+      userId: session.userId,
+      slug: created.uniqueSlug,
+    });
 
     return { ok: true, data: created };
   } catch (error) {
@@ -124,10 +168,24 @@ export async function updateProductAction(
       return { ok: false, error: { code: 'forbidden', message: 'You do not have permission to edit this product.' } };
     }
 
-    // 4. Update. The slug is intentionally preserved so the public link never changes.
+    // 4. Validate a replacement image. Existing products may predate upload
+    // validation (for example, remote image URLs), so keep the current image
+    // unless the seller actually replaces it.
+    if (imageUrl !== existing.imageUrl) {
+      const image = validateProductImageDataUrl(imageUrl);
+      if (!image.ok) {
+        return {
+          ok: false,
+          error: { code: 'invalid_image', message: image.message },
+        };
+      }
+    }
+
+    // 5. Update. The slug is intentionally preserved so the public link never changes.
     const updated = await db.product.update({
       where: { id: productId },
       data: { name, description, price: priceKobo, imageUrl },
+      select: { id: true, uniqueSlug: true },
     });
 
     revalidatePath('/products');

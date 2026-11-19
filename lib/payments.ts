@@ -4,7 +4,6 @@ import { env, isProduction } from '@/lib/env';
 import { logger } from '@/lib/logger';
 import {
   FlutterwaveTransientError,
-  koboToNaira,
   nairaToKobo,
   verifyTransaction,
   verifyTransactionByRef,
@@ -108,23 +107,23 @@ export async function settleVerifiedTransaction(
   }
 
   // Gateway boundary: Flutterwave reports naira, the database stores kobo.
-  // The buyer must have paid at least the listed price: an underpaid charge
-  // never settles, an overpaid one does (the seller is not shortchanged).
-  const expectedAmountNaira = koboToNaira(order.amount);
-  if (verified.amount < expectedAmountNaira) {
-    logger.warn('payments.settle.amount_underpaid', {
+  // The charge must match the order exactly. Overpayments are rejected too:
+  // a paid order must never have a different amount than the buyer was quoted.
+  const paidAmountKobo = nairaToKobo(verified.amount);
+  if (paidAmountKobo !== order.amount) {
+    logger.warn('payments.settle.amount_mismatch', {
       orderId: order.id,
-      expected: expectedAmountNaira,
-      actual: verified.amount,
+      expectedKobo: order.amount,
+      actualKobo: paidAmountKobo,
     });
     await recordPaymentLog({
       event: 'settlement',
-      outcome: 'amount_underpaid',
+      outcome: 'amount_mismatch',
       orderId: order.id,
       transactionReference: order.transactionReference,
       gatewayReference: String(verified.id),
-      amountKobo: nairaToKobo(verified.amount),
-      detail: { expectedKobo: order.amount, paidKobo: nairaToKobo(verified.amount) },
+      amountKobo: paidAmountKobo,
+      detail: { expectedKobo: order.amount, paidKobo: paidAmountKobo },
     });
     return { status: 'mismatch', orderId: order.id };
   }
@@ -334,7 +333,8 @@ export async function verifyOrderOnBuyerReturn(
   transactionReference?: string,
   transactionId?: number
 ): Promise<SettlementResult | null> {
-  if (isProduction || env.ENABLE_DEV_VERIFY !== 'true') {
+  const productionRuntime = isProduction || process.env.NODE_ENV === 'production';
+  if (productionRuntime || env.ENABLE_DEV_VERIFY !== 'true') {
     // Expected path: the signed webhook is the only settlement authority.
     return null;
   }

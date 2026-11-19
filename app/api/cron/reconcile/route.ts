@@ -16,12 +16,15 @@ import { recordPaymentLog } from '@/lib/payment-log';
  *
  * Flutterwave webhook delivery is not guaranteed. This job finds orders that
  * are still pending after 15 minutes, asks the verify API for the real status,
- * and settles them. It is protected by CRON_SECRET and intended to run every
- * five minutes (see vercel.json).
+ * and settles them. It is protected by CRON_SECRET and intended to run daily
+ * on Vercel Hobby (see vercel.json).
  */
 
+export const maxDuration = 60;
+
 const PENDING_AGE_MS = 15 * 60 * 1000;
-const BATCH_SIZE = 50;
+const BATCH_SIZE = 20;
+const MAX_RUN_MS = 40_000;
 
 type ReconcileSummary = {
   checked: number;
@@ -80,14 +83,26 @@ export async function GET(req: NextRequest) {
     });
 
     const summary: ReconcileSummary = {
-      checked: orders.length,
+      checked: 0,
       settled: 0,
       failed: 0,
       stillPending: 0,
       errors: 0,
     };
 
+    const startedAt = Date.now();
+
     for (const order of orders) {
+      if (Date.now() - startedAt >= MAX_RUN_MS) {
+        logger.warn('cron.reconcile.time_budget_exhausted', {
+          processed: summary.checked,
+          remaining: orders.length - summary.checked,
+        });
+        break;
+      }
+
+      summary.checked += 1;
+
       try {
         const verified = await verifyTransactionByRef(order.transactionReference);
 

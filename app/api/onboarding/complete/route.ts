@@ -1,10 +1,14 @@
-import { fail, ok } from '@/lib/api-response';
+import { NextRequest } from 'next/server';
+import { enforceTrustedOrigin, fail, ok } from '@/lib/api-response';
 import { db } from '@/lib/db';
 import { logger } from '@/lib/logger';
 import { getSession } from '@/lib/auth';
 
-export async function POST() {
+export async function POST(req: NextRequest) {
   try {
+    const untrusted = enforceTrustedOrigin(req);
+    if (untrusted) return untrusted;
+
     const session = await getSession();
     if (!session) {
       return fail(401, 'unauthorized', 'Please sign in.');

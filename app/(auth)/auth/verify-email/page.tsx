@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { firstQueryValue } from '@/lib/utils';
 import { VerifyEmailForm } from './_components/VerifyEmailForm';
 
 export const metadata: Metadata = {
@@ -7,11 +8,19 @@ export const metadata: Metadata = {
 };
 
 type Props = {
-  searchParams: Promise<{ email?: string; devCode?: string }>;
+  searchParams: Promise<{
+    email?: string | string[];
+    devCode?: string | string[];
+  }>;
 };
 
 export default async function VerifyEmailPage({ searchParams }: Props) {
   const { email, devCode } = await searchParams;
 
-  return <VerifyEmailForm initialEmail={email ?? ''} initialDevCode={devCode} />;
+  return (
+    <VerifyEmailForm
+      initialEmail={firstQueryValue(email) ?? ''}
+      initialDevCode={firstQueryValue(devCode)}
+    />
+  );
 }
