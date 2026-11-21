@@ -1,0 +1,16 @@
+warning: in the working copy of 'app/(auth)/auth/_components/AuthCard.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(auth)/auth/_components/AuthForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(auth)/auth/_components/ErrorAlert.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(auth)/auth/forgot-password/_components/ForgotPasswordForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(auth)/auth/reset-password/_components/ResetPasswordForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(auth)/auth/verify-email/_components/VerifyEmailForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/_components/DashboardSidebar.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/_components/DashboardSidebar.tsx', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/dashboard/_components/MetricCard.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/dashboard/dashboard.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/layout.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/orders/orders.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/products/_components/ProductForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/settings/_components/PasswordChangeForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/(dashboard)/settings/_components/SettingsForm.module.css', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/globals.css', LF will be replaced by CRLF the next time Git touches it

@@ -15,11 +15,12 @@
 
 html,
 body {
-  max-width: 100vw;
-  overflow-x: hidden;
+  max-width: 100%;
+  overflow-x: clip;
   background-color: var(--color-background-color);
   color: var(--color-on-background-color);
   font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,4 +38,78 @@ input,
 textarea,
 select {
   font-family: inherit;
+  max-width: 100%;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+a,
+button,
+input,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--color-primary-color);
+  outline-offset: 2px;
+}
+
+/* Responsive type scale.
+   The values in tokens/tokens.css are the desktop source of truth. These
+   overrides interpolate the display/title steps down on smaller viewports and
+   reach the original token values by ~1024px, so the desktop design is
+   unchanged. Unitless line-heights and em tracking keep the proportions. */
+:root {
+  --font-display-large-font-size: clamp(2.25rem, 6.25vw, 3.875rem);
+  --font-display-large-line-height: 1.5;
+  --font-display-large-letter-spacing: -0.035em;
+  --font-display-large: normal 500 clamp(2.25rem, 6.25vw, 3.875rem)/1.5 Satoshi, sans-serif;
+
+  --font-display-medium-font-size: clamp(2rem, 5.7vw, 3.5rem);
+  --font-display-medium-line-height: 1.5;
+  --font-display-medium-letter-spacing: -0.035em;
+  --font-display-medium: normal 400 clamp(2rem, 5.7vw, 3.5rem)/1.5 Satoshi, sans-serif;
+
+  --font-display-small-font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+  --font-display-small-line-height: 1.5;
+  --font-display-small-letter-spacing: -0.025em;
+  --font-display-small: normal 400 clamp(1.75rem, 4.5vw, 2.75rem)/1.5 Satoshi, sans-serif;
+
+  --font-headline-large-font-size: clamp(1.5625rem, 3.9vw, 2.375rem);
+  --font-headline-large-line-height: 1.5;
+  --font-headline-large-letter-spacing: -0.022em;
+  --font-headline-large: normal 500 clamp(1.5625rem, 3.9vw, 2.375rem)/1.5 Satoshi, sans-serif;
+
+  --font-headline-medium-font-size: clamp(1.375rem, 3.3vw, 2rem);
+  --font-headline-medium-line-height: 1.5;
+  --font-headline-medium-letter-spacing: -0.018em;
+  --font-headline-medium: normal 500 clamp(1.375rem, 3.3vw, 2rem)/1.5 Satoshi, sans-serif;
+
+  --font-headline-small-font-size: clamp(1.3125rem, 2.9vw, 1.75rem);
+  --font-headline-small-line-height: 1.5;
+  --font-headline-small-letter-spacing: -0.015em;
+  --font-headline-small: normal 500 clamp(1.3125rem, 2.9vw, 1.75rem)/1.5 Satoshi, sans-serif;
+
+  --font-title-large-font-size: clamp(1.25rem, 2.7vw, 1.625rem);
+  --font-title-large-line-height: 1.5;
+  --font-title-large-letter-spacing: -0.013em;
+  --font-title-large: normal 500 clamp(1.25rem, 2.7vw, 1.625rem)/1.5 Satoshi, sans-serif;
+
+  --font-title-medium-font-size: clamp(1.1875rem, 2.5vw, 1.5rem);
+  --font-title-medium-line-height: 1.5;
+  --font-title-medium-letter-spacing: -0.012em;
+  --font-title-medium: normal 500 clamp(1.1875rem, 2.5vw, 1.5rem)/1.5 Satoshi, sans-serif;
+
+  --font-title-small-font-size: clamp(1.125rem, 2.3vw, 1.375rem);
+  --font-title-small-line-height: 1.5;
+  --font-title-small-letter-spacing: -0.01em;
+  --font-title-small: normal 500 clamp(1.125rem, 2.3vw, 1.375rem)/1.5 Satoshi, sans-serif;
 }

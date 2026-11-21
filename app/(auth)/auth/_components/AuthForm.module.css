@@ -60,7 +60,7 @@
 }
 
 .form .field {
-  gap: 4px;
+  gap: 8px;
 }
 
 .inputFilled {
@@ -80,14 +80,17 @@
 .passwordRequirement {
   font: var(--font-body-small);
   color: var(--color-on-surface-variant-color);
+  overflow-wrap: break-word;
 }
 
 .forgotLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font: var(--font-body-small);
   font-weight: 500;
   color: var(--color-primary-color);
   text-decoration: none;
-  white-space: nowrap;
 }
 
 .forgotLink:hover {
@@ -96,18 +99,30 @@
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-top: 4px;
 }
 
 .actions .submitBtn {
-  flex: 1;
-  width: auto;
+  flex: 1 1 100%;
+  width: 100%;
   margin-top: 0;
 }
 
 .backBtn {
-  flex-shrink: 0;
+  flex: 1 1 100%;
+}
+
+@media (min-width: 480px) {
+  .actions .submitBtn {
+    flex: 1;
+    width: auto;
+  }
+
+  .backBtn {
+    flex: 0 0 auto;
+  }
 }
 
 .submitBtn {
@@ -119,16 +134,20 @@
   text-align: center;
   margin-top: 14px;
   font: var(--font-body-small);
+  line-height: 1.5;
   color: var(--color-on-surface-variant-color);
 }
 
 .link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 4px;
   font: inherit;
   color: var(--color-primary-color);
   font-weight: 500;
   background: none;
   border: none;
-  padding: 0;
   cursor: pointer;
 }
 

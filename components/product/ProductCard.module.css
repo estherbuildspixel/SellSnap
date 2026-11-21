@@ -3,12 +3,13 @@
   flex-direction: column;
   overflow: hidden;
   padding: 0;
+  min-width: 0;
   border-radius: 12px;
 }
 
 .imageContainer {
   width: 100%;
-  height: 200px;
+  height: clamp(180px, 56vw, 200px);
   background-color: var(--color-surface-container-high-color);
   position: relative;
   overflow: hidden;
@@ -70,6 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   padding: 8px 12px;
   border-radius: 8px;
   background-color: var(--color-surface-container-color);
@@ -82,6 +84,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  min-width: 0;
   max-width: 180px;
 }
 
@@ -95,19 +98,26 @@
   border-radius: 4px;
   font-weight: 600;
   transition: opacity 150ms ease;
-  min-height: 32px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .copyBtn:hover {
   opacity: 0.8;
 }
 
+.copyBtn:focus-visible {
+  outline: 2px solid var(--color-primary-color);
+  outline-offset: 2px;
+}
+
 .actions {
   display: flex;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   align-items: stretch;
   gap: 8px;
   margin-top: auto;
@@ -115,8 +125,18 @@
 
 .actions > * {
   display: flex;
-  flex: 1 1 0;
+  flex: 1 1 auto;
   min-width: 0;
+}
+
+@media (min-width: 480px) {
+  .actions {
+    flex-wrap: nowrap;
+  }
+
+  .actions > * {
+    flex: 1 1 0;
+  }
 }
 
 .actions > * > button,

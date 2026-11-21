@@ -32,18 +32,22 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
 }
 
 .sectionTitle {
   font: var(--font-title-large);
   letter-spacing: var(--font-title-large-letter-spacing);
   color: var(--color-on-surface-color);
+  overflow-wrap: break-word;
 }
 
 .viewAllLink {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  min-height: 44px;
   font: var(--font-label-large);
   color: var(--color-primary-color);
   font-weight: 600;

@@ -61,7 +61,7 @@
   top: 0;
   bottom: 0;
   left: 0;
-  width: 240px;
+  width: min(240px, 85vw);
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -244,6 +244,8 @@
   border-radius: 12px;
   background-color: var(--color-surface-color);
   box-shadow: 0 8px 24px color-mix(in srgb, var(--color-on-surface-color) 16%, transparent);
+  max-height: min(240px, 40vh);
+  overflow-y: auto;
 }
 
 .menuItem {
@@ -288,6 +290,12 @@
 .logoutBtn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+@media (max-width: 359px) {
+  .sidebar {
+    padding: 12px;
+  }
 }
 
 @media (min-width: 768px) {

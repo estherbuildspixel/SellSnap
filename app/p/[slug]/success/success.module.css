@@ -1,5 +1,6 @@
 .wrapper {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -10,7 +11,7 @@
 .card {
   width: 100%;
   max-width: 440px;
-  padding: 32px 24px;
+  padding: 24px 16px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -46,12 +47,14 @@
   font: var(--font-headline-small);
   letter-spacing: var(--font-headline-small-letter-spacing);
   color: var(--color-on-surface-color);
+  overflow-wrap: break-word;
 }
 
 .subtitle {
   font: var(--font-body-small);
   color: var(--color-on-surface-variant-color);
   line-height: 1.5;
+  overflow-wrap: break-word;
 }
 
 .refBox {
@@ -97,9 +100,11 @@
 }
 
 .noticeText {
+  min-width: 0;
   font: var(--font-label-small);
   color: var(--color-on-surface-variant-color);
-  line-height: 1.4;
+  line-height: 1.5;
+  overflow-wrap: break-word;
 }
 
 .actions {
@@ -110,6 +115,16 @@
   margin-top: 8px;
 }
 
+.actions a {
+  display: block;
+}
+
 .btn {
   width: 100%;
+}
+
+@media (min-width: 480px) {
+  .card {
+    padding: 32px 24px;
+  }
 }

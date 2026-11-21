@@ -1,4 +1,19 @@
-﻿.card { width: 100%; max-width: 440px; padding: 28px; display: flex; flex-direction: column; gap: 24px; }
+﻿.card {
+  width: 100%;
+  max-width: 440px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@media (min-width: 480px) {
+  .card {
+    padding: 28px;
+    gap: 24px;
+  }
+}
+
 .stepIndicator { display: flex; flex-direction: column; gap: 6px; }
 .stepHeader { display: flex; align-items: center; gap: 8px; }
 .backButton {
@@ -48,7 +63,34 @@
     animation: fadeIn 200ms ease both;
   }
 }
-.title { font: var(--font-title-medium); letter-spacing: var(--font-title-medium-letter-spacing); color: var(--color-on-surface-color); }
-.description { font: var(--font-body-medium); color: var(--color-on-surface-variant-color); }
-.error { font: var(--font-body-small); color: var(--color-error-color); }
-.actions { display: flex; justify-content: space-between; gap: 12px; }
+.title {
+  font: var(--font-title-medium);
+  letter-spacing: var(--font-title-medium-letter-spacing);
+  color: var(--color-on-surface-color);
+  overflow-wrap: break-word;
+}
+.description {
+  font: var(--font-body-medium);
+  color: var(--color-on-surface-variant-color);
+  overflow-wrap: break-word;
+}
+.error { font: var(--font-body-small); color: var(--color-error-color); overflow-wrap: break-word; }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+}
+.actions > * {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.actions > :last-child {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 480px) {
+  .actions > :last-child {
+    flex: 0 1 auto;
+  }
+}

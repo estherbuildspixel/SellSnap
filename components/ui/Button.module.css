@@ -4,6 +4,7 @@
   justify-content: center;
   gap: 8px;
   min-height: 44px; /* minimum mobile touch target */
+  max-width: 100%;
   padding: 0 16px;
   border: 1px solid transparent;
   border-radius: 8px;

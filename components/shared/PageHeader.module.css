@@ -24,6 +24,7 @@
   font: var(--font-headline-medium);
   letter-spacing: var(--font-headline-medium-letter-spacing);
   color: var(--color-on-surface-color);
+  overflow-wrap: break-word;
 }
 
 .description {
@@ -34,5 +35,6 @@
 .actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
 }

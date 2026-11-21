@@ -1,5 +1,6 @@
 .page {
   min-height: 100vh;
+  min-height: 100dvh;
   padding: 16px 12px;
   background-color: var(--color-background-color);
   color: var(--color-on-background-color);
@@ -25,6 +26,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
   padding: 0 4px;
 }
 
@@ -32,6 +35,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  min-width: 0;
   font: var(--font-label-medium);
   color: var(--color-on-surface-variant-color);
 }
@@ -51,12 +55,14 @@
 .sellerName {
   font-weight: 600;
   color: var(--color-on-surface-color);
+  overflow-wrap: anywhere;
 }
 
 .secureBadge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  flex-shrink: 0;
   font: var(--font-label-small);
   color: var(--color-on-surface-variant-color);
 }
@@ -69,7 +75,7 @@
 
 .mediaContainer {
   width: 100%;
-  height: 260px;
+  height: clamp(220px, 68vw, 260px);
   background-color: var(--color-surface-container-high-color);
   position: relative;
   overflow: hidden;
@@ -120,6 +126,7 @@
   letter-spacing: var(--font-headline-small-letter-spacing);
   color: var(--color-on-surface-color);
   line-height: 1.25;
+  overflow-wrap: anywhere;
 }
 
 .priceRow {
@@ -138,6 +145,7 @@
   color: var(--color-on-surface-variant-color);
   line-height: 1.5;
   white-space: pre-wrap;
+  overflow-wrap: anywhere;
 }
 
 .divider {
@@ -177,6 +185,7 @@
 /* Unavailable page */
 .unavailableWrapper {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -187,7 +196,7 @@
 .unavailableCard {
   max-width: 400px;
   text-align: center;
-  padding: 32px 24px;
+  padding: 24px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -203,6 +212,7 @@
 .unavailableTitle {
   font: var(--font-headline-small);
   color: var(--color-on-surface-color);
+  overflow-wrap: break-word;
 }
 
 .unavailableDesc {
@@ -212,8 +222,17 @@
 }
 
 .homeLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   margin-top: 8px;
   font: var(--font-label-large);
   color: var(--color-primary-color);
   font-weight: 600;
+}
+
+@media (min-width: 480px) {
+  .unavailableCard {
+    padding: 32px 24px;
+  }
 }

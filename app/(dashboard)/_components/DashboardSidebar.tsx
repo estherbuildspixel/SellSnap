@@ -56,6 +56,8 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const settingsActive = isActivePath(pathname, '/settings');
 
   const close = () => {
@@ -64,17 +66,46 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
   };
 
   useEffect(() => {
-    if (!isUserMenuOpen) return;
+    if (!isOpen) return;
 
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus();
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 768px)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (event.matches) setIsOpen(false);
+    };
+
+    media.addEventListener('change', handleChange);
+    return () => media.removeEventListener('change', handleChange);
+  }, []);
+
+  useEffect(() => {
     const handlePointerDown = (event: MouseEvent) => {
-      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+      if (
+        isUserMenuOpen &&
+        userMenuRef.current &&
+        !userMenuRef.current.contains(event.target as Node)
+      ) {
         setIsUserMenuOpen(false);
       }
     };
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key !== 'Escape') return;
+
+      if (isUserMenuOpen) {
         setIsUserMenuOpen(false);
+      } else if (isOpen) {
+        setIsOpen(false);
+        menuButtonRef.current?.focus();
       }
     };
 
@@ -85,7 +116,7 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
       document.removeEventListener('mousedown', handlePointerDown);
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isUserMenuOpen]);
+  }, [isOpen, isUserMenuOpen]);
 
   return (
     <>
@@ -94,6 +125,7 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
           <span className={styles.brandText}>SellSnap</span>
         </Link>
         <button
+          ref={menuButtonRef}
           type="button"
           className={styles.menuButton}
           onClick={() => setIsOpen((open) => !open)}
@@ -101,7 +133,7 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
           aria-expanded={isOpen}
           aria-controls="dashboard-sidebar"
         >
-          <MdMenu size={20} aria-hidden="true" />
+          {isOpen ? <MdClose size={20} aria-hidden="true" /> : <MdMenu size={20} aria-hidden="true" />}
         </button>
       </header>
 
@@ -109,7 +141,10 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
         <button
           type="button"
           className={styles.backdrop}
-          onClick={close}
+          onClick={() => {
+            close();
+            menuButtonRef.current?.focus();
+          }}
           aria-label="Close navigation menu"
           tabIndex={-1}
         />
@@ -125,9 +160,13 @@ export function DashboardSidebar({ businessName, userName }: DashboardSidebarPro
             <span className={styles.brandText}>SellSnap</span>
           </Link>
           <button
+            ref={closeButtonRef}
             type="button"
             className={styles.closeButton}
-            onClick={close}
+            onClick={() => {
+              close();
+              menuButtonRef.current?.focus();
+            }}
             aria-label="Close navigation menu"
           >
             <MdClose size={20} aria-hidden="true" />

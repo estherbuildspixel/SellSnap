@@ -57,6 +57,7 @@
   letter-spacing: var(--font-headline-medium-letter-spacing);
   font-weight: 700;
   color: var(--color-on-surface-color);
+  overflow-wrap: anywhere;
 }
 
 .caption {
