@@ -87,6 +87,12 @@
     min-width: 0;
   }
 
+  .tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
   .headerRow {
     display: none;
   }
