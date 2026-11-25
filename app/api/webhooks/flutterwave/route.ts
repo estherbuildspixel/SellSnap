@@ -1,4 +1,5 @@
 import { NextRequest } from 'next/server';
+import { revalidatePath } from 'next/cache';
 import { timingSafeEqual } from 'crypto';
 import { z } from 'zod';
 import { fail, ok } from '@/lib/api-response';
@@ -145,6 +146,9 @@ export async function POST(req: NextRequest) {
     // 6. Settle idempotently. The verify response is the source of truth, so a
     // failed charge, a retried webhook, and an unknown tx_ref all resolve here.
     const result = await settleVerifiedTransaction(verified);
+    if (result.status === 'paid' || result.status === 'already_processed') {
+      revalidatePath('/orders');
+    }
     return ok({ status: result.status });
   } catch (error) {
     logger.error('webhooks.flutterwave.settle_failed', { error });
