@@ -8,30 +8,129 @@ import { logger } from '@/lib/logger';
 import {
   FlutterwaveTransientError,
   verifyTransaction,
+  verifyTransactionByRef,
   type VerifiedTransaction,
 } from '@/lib/flutterwave';
 import { settleVerifiedTransaction } from '@/lib/payments';
 import { recordPaymentLog } from '@/lib/payment-log';
 
-const webhookSchema = z
+type ChargePayload = {
+  id?: number;
+  tx_ref: string;
+  status: string;
+};
+
+type NormalizedWebhookPayload = {
+  eventType: string;
+  data: ChargePayload | null;
+};
+
+const transactionIdSchema = z.union([
+  z.number().int().nonnegative(),
+  z.string().regex(/^\d+$/).transform(Number),
+]);
+
+const chargePayloadSchema = z.object({
+  id: transactionIdSchema.optional(),
+  tx_ref: z.string().min(1),
+  status: z.string().min(1),
+});
+
+const webhookEnvelopeSchema = z
   .object({
-    // Flutterwave v3 sends `event` (e.g. "charge.completed"). `type` is kept as a
-    // fallback for older payloads; the API has used both names historically.
-    event: z.string().optional(),
-    type: z.string().optional(),
-    data: z.object({
-      id: z.coerce.number().int(),
-      // Both fields are always present on charge.completed payloads. They are
-      // not trusted for settlement (the verify API is the source of truth), but
-      // requiring them rejects payloads that could not have come from
-      // Flutterwave.
-      tx_ref: z.string().min(1),
-      status: z.string().min(1),
-    }),
+    event: z.unknown().optional(),
+    type: z.unknown().optional(),
+    data: z.unknown().optional(),
+    id: z.unknown().optional(),
+    txRef: z.unknown().optional(),
+    status: z.unknown().optional(),
   })
-  .refine((payload) => Boolean(payload.event || payload.type), {
-    message: 'Missing event type',
-  });
+  .passthrough();
+
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) return null;
+  return value as Record<string, unknown>;
+}
+
+function nonEmptyString(...values: unknown[]): string | undefined {
+  for (const value of values) {
+    if (typeof value === 'string' && value.trim()) return value;
+  }
+  return undefined;
+}
+
+function eventTypeFromPayload(
+  payload: z.infer<typeof webhookEnvelopeSchema>,
+  nestedData: Record<string, unknown> | null
+): string | undefined {
+  const explicit = nonEmptyString(payload.event, payload.type);
+  if (explicit) return explicit;
+
+  const status = nonEmptyString(payload.status, nestedData?.status)?.toLowerCase();
+  if (status === 'successful' || status === 'success') return 'charge.completed';
+  if (status === 'failed') return 'charge.failed';
+  return undefined;
+}
+
+function isChargeEvent(eventType: string): boolean {
+  return eventType === 'charge.completed' || eventType === 'charge.failed';
+}
+
+function chargePayloadFromPayload(
+  payload: z.infer<typeof webhookEnvelopeSchema>,
+  nestedData: Record<string, unknown> | null
+): unknown {
+  if (nestedData) {
+    return {
+      id: nestedData.id,
+      tx_ref: nonEmptyString(nestedData.tx_ref, nestedData.txRef),
+      status: nonEmptyString(nestedData.status),
+    };
+  }
+
+  return {
+    id: payload.id,
+    tx_ref: nonEmptyString(payload.txRef, payload.tx_ref),
+    status: nonEmptyString(payload.status),
+  };
+}
+
+function issuePathForPayload(
+  nestedData: Record<string, unknown> | null,
+  issuePath: PropertyKey[]
+): PropertyKey[] {
+  if (nestedData) return ['data', ...issuePath];
+  if (issuePath[0] === 'tx_ref') return ['txRef', ...issuePath.slice(1)];
+  return issuePath;
+}
+
+const webhookSchema = webhookEnvelopeSchema.transform((payload, ctx) => {
+  const nestedData = asRecord(payload.data);
+  const eventType = eventTypeFromPayload(payload, nestedData);
+  if (!eventType) {
+    ctx.addIssue({ code: 'custom', message: 'Missing event type', path: ['event'] });
+    return z.NEVER;
+  }
+
+  if (!isChargeEvent(eventType)) {
+    return { eventType, data: null } satisfies NormalizedWebhookPayload;
+  }
+
+  const parsedData = chargePayloadSchema.safeParse(
+    chargePayloadFromPayload(payload, nestedData)
+  );
+  if (!parsedData.success) {
+    const firstIssue = parsedData.error.issues[0];
+    ctx.addIssue({
+      code: 'custom',
+      message: 'Invalid charge payload',
+      path: issuePathForPayload(nestedData, firstIssue?.path ?? []),
+    });
+    return z.NEVER;
+  }
+
+  return { eventType, data: parsedData.data } satisfies NormalizedWebhookPayload;
+});
 
 function isValidSecretHash(header: string | null): boolean {
   const secret = env.FLW_SECRET_HASH;
@@ -79,18 +178,17 @@ export async function POST(req: NextRequest) {
       return fail(400, 'invalid_input', 'Invalid payload.');
     }
 
-    const { data } = parsed.data;
-    const eventType = parsed.data.event ?? parsed.data.type ?? '';
+    const { data, eventType } = parsed.data;
 
     // 4. Filter on actionable event types. Failed payments arrive as
     // "charge.completed" with data.status = "failed", so the verify response below
     // is what decides the final state.
-    if (eventType !== 'charge.completed' && eventType !== 'charge.failed') {
+    if (!data || (eventType !== 'charge.completed' && eventType !== 'charge.failed')) {
       logger.info('webhooks.flutterwave.event_ignored', { eventType });
       await recordPaymentLog({
         event: 'webhook',
         outcome: 'event_ignored',
-        gatewayReference: String(data.id),
+        ...(data?.id !== undefined ? { gatewayReference: String(data.id) } : {}),
         detail: { eventType },
       });
       return ok({ status: 'ignored' });
@@ -99,20 +197,24 @@ export async function POST(req: NextRequest) {
     // 5. Verify transaction with Flutterwave API (never trust body alone).
     let verified: VerifiedTransaction | null;
     try {
-      verified = await verifyTransaction(data.id);
+      verified =
+        data.id !== undefined
+          ? await verifyTransaction(data.id)
+          : await verifyTransactionByRef(data.tx_ref);
     } catch (error) {
       if (error instanceof FlutterwaveTransientError) {
         // Transient: tell Flutterwave to retry so a network blip does not leave
         // the order pending forever.
         logger.warn('webhooks.flutterwave.verify_transient', {
           transactionId: data.id,
+          transactionReference: data.tx_ref,
           eventType,
         });
         await recordPaymentLog({
           event: 'webhook',
           outcome: 'verify_transient',
           transactionReference: data.tx_ref,
-          gatewayReference: String(data.id),
+          ...(data.id !== undefined ? { gatewayReference: String(data.id) } : {}),
           detail: { eventType },
         });
         return fail(
@@ -131,13 +233,14 @@ export async function POST(req: NextRequest) {
       // Flutterwave stops retrying; the audit trail records why.
       logger.warn('webhooks.flutterwave.verify_failed', {
         transactionId: data.id,
+        transactionReference: data.tx_ref,
         eventType,
       });
       await recordPaymentLog({
         event: 'webhook',
         outcome: 'verify_failed',
         transactionReference: data.tx_ref,
-        gatewayReference: String(data.id),
+        ...(data.id !== undefined ? { gatewayReference: String(data.id) } : {}),
         detail: { eventType },
       });
       return ok({ status: 'unverified' });
